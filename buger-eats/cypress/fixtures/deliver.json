@@ -1,0 +1,50 @@
+{
+    "signup": {
+        "name": "Igor Brito",
+        "cpf": "14114114114",
+        "email": "igorcbrito96@gmail.com",
+        "whatsapp": "84998791054", 
+        "address": {
+            "postalcode": "59063070",
+            "street": "Rua São José de Mipibu",
+            "number": "1504",
+            "details": "casa 2",
+            "district": "Lagoa Nova",
+            "city_state": "Natal/RN"
+        },
+        "delivery_method": "Moto",
+        "cnh": "cnh-digital.jpg"
+    },
+    "cpf_inv": {
+        "name": "João Ricardo",
+        "cpf": "i12232123AA",
+        "email": "joaoricardo@example.com",
+        "whatsapp": "2132055687", 
+        "address": {
+            "postalcode": "21532280",
+            "street": "Rua Theotônio dos Santos",
+            "number": "06",
+            "details": "casa 2",
+            "district": "Pavuna",
+            "city_state": "Rio de Janeiro/RJ"
+        },
+        "delivery_method": "Bike Elétrica",
+        "cnh": "cnh-digital.jpg"
+    },
+    "email_inv": {
+        "name": "Igor Brito",
+        "cpf": "14114114114",
+        "email": "igorcbrito.com.br",
+        "whatsapp": "84998791054", 
+        "address": {
+            "postalcode": "59063070",
+            "street": "Rua São José de Mipibu",
+            "number": "1504",
+            "details": "casa 2",
+            "district": "Lagoa Nova",
+            "city_state": "Natal/RN"
+        },
+        "delivery_method": "Van/Carro",
+        "cnh": "cnh-digital.jpg"
+    }
+}

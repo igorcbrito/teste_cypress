@@ -1,49 +1,86 @@
+import signup from '../pages/SignupPage'
+import signupFactory from '../factories/SignupFactory'
+import SignupPage from '../pages/SignupPage'
 
 
+describe('Signup', function () {
 
-describe('Cadastro', ()=>{
-    it('Usuário deve se tornar um entregador', ()=>{
-        cy.viewport(1366,768)
-        cy.visit('https://buger-eats.vercel.app')
+    /*     beforeEach(function () {
+            cy.fixture('deliver').then((d) => {
+                this.deliver = d
+            })
+        })
+     */
 
-        cy.get('a[href="/deliver"]').click()
-        cy.get('#page-deliver form h1').should('have.text', 'Cadastre-se para  fazer entregas')
+    it('User should be deliver', function () {
 
-        var entregador = {
-            nome: 'Igor Brito',
-            cpf: '12345678912',
-            email: 'igorcbrito96@gmail.com',
-            whatsapp: '84998791054', 
-            endereco: {
-                cep: '59063070',
-                rua: 'Rua São José de Mipibu',
-                numero: '1504',
-                complemento: 'casa 2',
-                bairro: 'Lagoa Nova',
-                cidade_uf: 'Natal/RN'
-            },
-            metodo_entrega: 'Moto',
-            cnh: 'cnh-digital.jpg'
-        }
+        var deliver = signupFactory.deliver()
 
-        cy.get('input[name="name"]').type(entregador.nome)
-        cy.get('input[name="cpf"]').type(entregador.cpf)
-        cy.get('input[name="email"]').type(entregador.email)
-        cy.get('input[name="whatsapp"]').type(entregador.whatsapp)
+        signup.go()
+        signup.fillForm(deliver)
+        signup.submit()
 
-        cy.get('input[name="postalcode"]').type(entregador.endereco.cep)
-        cy.get('input[type="button"][value="Buscar CEP"]').click()
-
-        cy.get('input[name="address-number"]').type(entregador.endereco.numero)
-        cy.get('input[name="address-details"]').type(entregador.endereco.complemento)
-
-        cy.get('input[name="address"]').should('have.value', entregador.endereco.rua)
-        cy.get('input[name="district"]').should('have.value', entregador.endereco.bairro)
-        cy.get('input[name="city-uf"]').should('have.value', entregador.endereco.cidade_uf)
-
-        cy.contains('.delivery-method li ', entregador.metodo_entrega).click()
-
-        cy.get('input[accept^="image"]').attachFile('/images/' + entregador.cnh)
-
+        const expectedMessage = 'Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato.'
+        signup.modalConentShouldBe(expectedMessage)
     })
+
+    it('Incorrect document', function () {
+
+        var deliver = signupFactory.deliver()
+
+        deliver.cpf = '000000141aa'
+
+        signup.go()
+        signup.fillForm(deliver)
+        signup.submit()
+        signup.alertMessageShouldBe('Oops! CPF inválido')
+    })
+
+    it('Incorrect email', function () {
+
+        var deliver = signupFactory.deliver()
+
+        deliver.email = 'user.com.br'
+
+        signup.go()
+        signup.fillForm(deliver)
+        signup.submit()
+        signup.alertMessageShouldBe('Oops! Email com formato inválido.')
+    })
+
+    context('Required fields', function() {
+        const messages = [
+            {field: 'name', output: 'É necessário informar o nome'},
+            {field: 'cpf', output: 'É necessário informar o CPF'},
+            {field: 'email', output: 'É necessário informar o email'},
+            {field: 'postalcode', output: 'É necessário informar o CEP'},
+            {field: 'number', output: 'É necessário informar o número do endereço'},
+            {field: 'delivery_method', output: 'Selecione o método de entrega'},
+            {field: 'cnh', output: 'Adicione uma foto da sua CNH'},
+        ]
+
+        before(function(){
+            signup.go()
+            signup.submit()
+
+        })
+
+        messages.forEach(function(msg){
+            it(`${msg.field} is required`, function(){
+                signup.alertMessageShouldBe(msg.output)
+            })
+        })
+    })
+
+/*     it('Required fields', function () {
+        signup.go()
+        signup.submit()
+        signup.alertMessageShouldBe('É necessário informar o nome')
+        signup.alertMessageShouldBe('É necessário informar o CPF')
+        signup.alertMessageShouldBe('É necessário informar o email')
+        signup.alertMessageShouldBe('É necessário informar o CEP')
+        signup.alertMessageShouldBe('É necessário informar o número do endereço')
+        signup.alertMessageShouldBe('Selecione o método de entrega')
+        signup.alertMessageShouldBe('Adicione uma foto da sua CNH')
+    }) */
 })

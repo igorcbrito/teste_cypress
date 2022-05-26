@@ -1,5 +1,6 @@
 {
     "viewportWidth": 1366,
     "viewportHeight": 768,
-    "baseUrl": "https://buger-eats-qa.vercel.app"
+    "baseUrl": "https://buger-eats-qa.vercel.app",
+    "projectId": "49k5ax"
 }

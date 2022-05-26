@@ -40,7 +40,7 @@ describe('Signup', function () {
 
         var deliver = signupFactory.deliver()
 
-        deliver.email = 'user.com.br'
+        deliver.email = 'teste.com.br'
 
         signup.go()
         signup.fillForm(deliver)
